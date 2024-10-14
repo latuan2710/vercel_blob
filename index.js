@@ -9,6 +9,10 @@ const upload = multer({
   storage: storage,
 }).single("myFile");
 
+app.get("/",(req,res)=>{
+    res.send("Hello World!")
+})
+
 app.post("/upload", (req, res) => {
   upload(req, res, async (err) => {
     if (err) {
