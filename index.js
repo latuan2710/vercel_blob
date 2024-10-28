@@ -44,6 +44,17 @@ app.post("/upload", (req, res) => {
   });
 });
 
+app.delete("/delete", async (req, res) => {
+  const fileUrl = req.body.fileUrl;
+
+  try {
+    await del(fileUrl);
+    res.json({ message: "Delete Successfull!" });
+  } catch (error) {
+    res.status(500).json({ message: "Delete Error!" });
+  }
+});
+
 // Start server
 app.listen(3000, () => {
   console.log("Server started on port 3000");
