@@ -24,11 +24,9 @@ app.post("/upload", (req, res) => {
       return res.status(400).send({ message: "No file selected!" });
     }
 
-    const originalName = req.body.fileName;
-
     const file = req.file;
 
-    const blob = await put(originalName, file.buffer, {
+    const blob = await put("", file.buffer, {
       access: "public",
       multipart: true,
       token: process.env.BLOB_READ_WRITE_TOKEN,
