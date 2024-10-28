@@ -3,15 +3,17 @@ const express = require("express");
 const multer = require("multer");
 const app = express();
 
+require('dotenv').config();
+
 const storage = multer.memoryStorage();
 
 const upload = multer({
   storage: storage,
 }).single("myFile");
 
-app.get("/",(req,res)=>{
-    res.send("Hello World!")
-})
+app.get("/", (req, res) => {
+  res.send("Hello World!");
+});
 
 app.post("/upload", (req, res) => {
   upload(req, res, async (err) => {
@@ -26,8 +28,11 @@ app.post("/upload", (req, res) => {
 
     const file = req.file;
 
-    const blob = await put(originalName, file.buffer.toString(), {
+    const blob = await put(originalName, file.buffer, {
       access: "public",
+      multipart: true,
+      token: process.env.BLOB_READ_WRITE_TOKEN,
+      contentType: "image/png",
     });
 
     res.json(blob);
