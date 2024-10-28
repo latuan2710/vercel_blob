@@ -1,9 +1,9 @@
-const { put } = require("@vercel/blob");
+const { put, list } = require("@vercel/blob");
 const express = require("express");
 const multer = require("multer");
 const app = express();
 
-require('dotenv').config();
+require("dotenv").config();
 
 const storage = multer.memoryStorage();
 
@@ -13,6 +13,11 @@ const upload = multer({
 
 app.get("/", (req, res) => {
   res.send("Hello World!");
+});
+
+app.get("/list", async (req, res) => {
+  const urls = await list();
+  res.json(urls);
 });
 
 app.post("/upload", (req, res) => {
