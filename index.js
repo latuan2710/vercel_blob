@@ -1,9 +1,10 @@
-const { put, list } = require("@vercel/blob");
+const { put, list, del } = require("@vercel/blob");
 const express = require("express");
 const multer = require("multer");
 const app = express();
 
 require("dotenv").config();
+app.use(express.json());
 
 const storage = multer.memoryStorage();
 
